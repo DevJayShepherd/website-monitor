@@ -1,0 +1,32 @@
+{% extends "common/base.html" %}
+
+{% block title %}
+    <title>Website Uptime Monitor</title>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h1 class="display-4 text-danger">Website uptime monitor...</h1>
+        <br>
+    </div>
+
+ <div class="row">
+    {% for website in websites %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ website.website_name}}</h5>
+                {% if website.status == true %}
+                    <img src="{{ url_for('static', path='images/online.png') }}" alt="" width="30" height="30">
+                    <h7>Online!</h7>
+                {% else %}
+                    <img src="{{ url_for('static', path='images/logo_icon/offline.png') }}" alt="" width="30" height="30">
+                    <h7>Offline!</h7>
+                <p class="card-text">{{ website.website_card_desc }}</p>
+                {% endif %}
+                <p class="card-text">{{ website.website_url }}</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    {% endfor %}
+  </div>
+{% endblock %}

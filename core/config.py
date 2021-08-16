@@ -24,4 +24,9 @@ class Settings:
     SECRET_KEY: str = os.getenv("SECRET_KEY")
     ALGORITHM: str = "HS256"
 
+    # Status icons
+    STATUS_UP: str = "{{ url_for('static', path='/images/logo_icon.png') }}"
+    STATUS_DOWN: str = 'logo_icon/offline.png'
+
+
 settings = Settings()

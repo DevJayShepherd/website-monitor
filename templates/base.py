@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from webapp import website_monitor
+from templates import website_monitor
 
 api_router = APIRouter()
 
