@@ -1,7 +1,5 @@
-from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey
-from sqlalchemy.orm import relationship
-
 from db.base_class import Base
+from sqlalchemy import Column, Integer, String
 
 
 class Website(Base):
@@ -10,5 +8,3 @@ class Website(Base):
     website_url = Column(String, unique=True, nullable=False)
     website_description = Column(String, nullable=False)  # This will be metadata
     website_keywords = Column(String, nullable=True)
-    twitter_account = Column(String, unique=False, nullable=True)
-    youtube_account = Column(String, unique=False, nullable=True)

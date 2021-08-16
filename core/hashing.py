@@ -1,7 +1,6 @@
-from passlib.context import CryptoContext
-from starlette import schemas
+from passlib.context import CryptContext
 
-pwd_context = CryptoContext(schemas=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 class Hasher:
