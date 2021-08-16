@@ -28,6 +28,7 @@ python-dotenv==0.17.0
 python-jose==3.2.0
 python-multipart==0.0.5
 requests==2.25.1
+jinja2
 rsa==4.7.2
 six==1.15.0
 SQLAlchemy==1.4.11
