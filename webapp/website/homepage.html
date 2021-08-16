@@ -8,4 +8,19 @@
     <div>
         <h1 class="display-4 text-danger">Website uptime monitor...</h1>
     </div>
+
+ <div class="row">
+    {% for website in websites %}
+      <div class="col-lg-4 col-md-3 col-sm-10 mr-auto">
+        {% with obj=website %}
+          {% include "components/card.html" %}
+        {% endwith %}
+
+        {% if loop.index %3 %}
+          </div>
+        {% else %}
+          </div></div><br><div class="row">
+        {% endif %}
+    {% endfor %}
+  </div>
 {% endblock %}
