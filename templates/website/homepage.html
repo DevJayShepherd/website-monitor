@@ -1,32 +1,340 @@
-{% extends "common/base.html" %}
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
 
-{% block title %}
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    {% block title %}
     <title>Website Uptime Monitor</title>
-{% endblock %}
+    {% endblock %}
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
 
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="{{ url_for('static', path='assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='assets/css/LineIcons.3.0.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='assets/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='assets/css/tiny-slider.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='assets/css/glightbox.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='assets/css/main.css') }}">
+
+</head>
 {% block content %}
-    <div>
-        <h1 class="display-4 text-danger">Website uptime monitor...</h1>
-        <br>
-    </div>
+<body>
+    <!--[if lte IE 9]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
+        your experience and security.
+      </p>
+    <![endif]-->
 
- <div class="row">
-    {% for website in websites %}
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">{{ website.website_name}}</h5>
-                {% if website.status == true %}
-                    <img src="{{ url_for('static', path='images/online.png') }}" alt="" width="30" height="30">
-                    <h7>Online!</h7>
-                {% else %}
-                    <img src="{{ url_for('static', path='images/logo_icon/offline.png') }}" alt="" width="30" height="30">
-                    <h7>Offline!</h7>
-                <p class="card-text">{{ website.website_card_desc }}</p>
-                {% endif %}
-                <p class="card-text">{{ website.website_url }}</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
             </div>
         </div>
-    {% endfor %}
-  </div>
+    </div>
+    <!-- /End Preloader -->
+
+    <!-- Start Header Area -->
+    <header class="header navbar-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="nav-inner">
+                        <!-- Start Navbar -->
+                        <nav class="navbar navbar-expand-lg">
+                            <a class="navbar-brand" href="index.html">
+                                <img src="{{ url_for('static', path='assets/images/logo/white-logo.svg') }}" alt="Website Monitor">
+                            </a>
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+                                    <li class="nav-item">
+                                        <a href="index.html" class="active" aria-label="Toggle navigation">Home</a>
+                                </ul>
+                            </div> <!-- navbar collapse -->
+                            <div class="button">
+                                <a href="#websites" class="btn">Get started</a>
+                            </div>
+                        </nav>
+                        <!-- End Navbar -->
+                    </div>
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </header>
+    <!-- End Header Area -->
+
+    <!-- Start Hero Area -->
+    <section class="hero-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 col-md-12 col-12">
+                    <div class="hero-content">
+                        <h4 class="wow fadeInUp" data-wow-delay=".2s">Welcome to Website Monitor</h4>
+                        <h1 class="wow fadeInUp" data-wow-delay=".4s">Instantly see the state of multiple major websites.</h1>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">Built by Jay Shepherd,
+                            with<br> FastAPI, Bootstrap 5, HTML5 and more...
+                        </p>
+                        <div class="button wow fadeInUp" data-wow-delay=".8s">
+                            <a href="#websites" class="btn ">Check now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-12">
+                    <div class="hero-image">
+                        <img class="main-image" src="{{ url_for('static', path='assets/images/hero/hero-image.png') }}" alt="#">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Hero Area -->
+
+    <!-- Start Services Area -->
+    <div class="services section" id="websites">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h3 class="wow zoomIn" data-wow-delay=".2s">Welcome</h3>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Website Status</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">Below you can see various major websites and whether they are online.
+                        If the website is not responding correctly you will see "Offline!", if working correctly you will see "Online!"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for website in websites %}
+                <div class="col-lg-4 col-md-6 col-12 wow fadeInUp" data-wow-delay=".2s">
+                    <div class="single-service">
+                        <div class="main-icon">
+                            <img src="{{ website.website_ico }}" alt="" height="35" width="35">
+                        </div>
+                        <h4 class="text-title">{{ website.website_name}}</h4>
+                        {% if website.status == true %}
+                            <img src="{{ url_for('static', path='images/online.png') }}" alt="" width="30" height="30">
+                            <h6>Online!</h6>
+                        {% else %}
+                            <img src="{{ url_for('static', path='images/logo_icon/offline.png') }}" alt="" width="30" height="30">
+                            <h6>Offline!</h6>
+                {% endif %}
+                        <br>
+                         <a href="{{ website.website_url }}">Visit {{ website.website_name }}</a>
+                    </div>
+            </div>
+                {% endfor %}
+        </div>
+    </div>
+    <!-- End Services Area -->
+
+    <!-- Start Call Action Area -->
+    <section class="call-action">
+        <div class="container">
+            <div class="inner-content">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-7 col-12">
+                        <div class="text">
+                            <h2>Want to hire me?
+                                <br> <span>Download my CV</span>
+                            </h2>
+                            <p style="display: block;margin-top: 10px;">Please click the button to the right, from which you will download a pdf copy of my CV. </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-5 col-12">
+                        <div class="button">
+                            <a href="static/Resume-Jay-Shepherd.pdf" class="btn">Download CV
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Call Action Area -->
+
+    <!-- Start Footer Area -->
+    <footer class="footer section">
+        <!-- Start Footer Top -->
+        <div class="footer-top">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <!-- Single Widget -->
+                            <div class="single-footer f-about">
+                                <div class="logo">
+                                    <a href="index.html">
+                                        <img src="{{ url_for('static', path='assets/images/logo/white-logo.svg') }}" alt="#">
+                                    </a>
+                                </div>
+                                <p>Portfolio website by Jay Shepherd. Utilizing a small but full stack of technologies.</p>
+                                <h4 class="social-title">Connect with me:</h4>
+                                <ul class="social">
+                                    <li><a href="https://www.linkedin.com/in/jay-s-62653463/"><i class="lni lni-linkedin-original"></i></a></li>
+                                </ul>
+                            </div>
+                            <!-- End Single Widget -->
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-12">
+                            <!-- Single Widget -->
+                            <div class="single-footer f-link">
+                                <h3>Skills</h3>
+                                <ul>
+                                    <li><a href="javascript:void(0)">Python</a></li>
+                                    <li><a href="javascript:void(0)">Flask</a></li>
+                                    <li><a href="javascript:void(0)">FastAPI</a></li>
+                                    <li><a href="javascript:void(0)">Postgres</a></li>
+                                    <li><a href="javascript:void(0)">Kubernetes</a></li>
+                                    <li><a href="javascript:void(0)">& More!</a></li>
+                                </ul>
+                            </div>
+                            <!-- End Single Widget -->
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-12">
+                            <!-- Single Widget -->
+                            <div class="single-footer f-link">
+                                <h3>Useful Links</h3>
+                                <ul>
+                                    <li><a href="https://github.com/DevJayShepherd/">GitHub</a></li>
+                                    <li><a href="https://www.linkedin.com/in/jay-s-62653463/">LinkedIn</a></li>
+
+
+                                </ul>
+                            </div>
+                            <!-- End Single Widget -->
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <img src="{{ url_for('static', path='images/fast-api.png') }}" alt="fastapi-logo" height="100" width="300">
+                            <img src="{{ url_for('static', path='images/python-logo.svg') }}" alt="python-logo" height="100" width="300">
+
+                            <!-- End Single Widget -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ End Footer Top -->
+        <!-- Start Copyright Area -->
+        <div class="copyright-area">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <p class="copyright-text">© 2021 Website Monitor - All Rights Reserved</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <p class="copyright-owner">Designed and Developed by <a href="https://www.linkedin.com/in/jay-s-62653463/"
+                                    rel="nofollow" target="_blank">Jay Shepherd</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Copyright Area -->
+    </footer>
+    <!--/ End Footer Area -->
+
+    <!-- ========================= scroll-top ========================= -->
+    <a href="#" class="scroll-top">
+        <i class="lni lni-chevron-up"></i>
+    </a>
+
+    <!-- ========================= JS here ========================= -->
+    <script src="{{ url_for('static', path='assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', path='assets/js/wow.min.js') }}"></script>
+    <script src="{{ url_for('static', path='assets/js/glightbox.min.js') }}"></script>
+    <script src="{{ url_for('static', path='assets/js/count-up.min.js') }}"></script>
+    <script src="{{ url_for('static', path='assets/js/imagesloaded.min.js') }}"></script>
+    <script src="{{ url_for('static', path='assets/js/isotope.min.js') }}"></script>
+    <script src="{{ url_for('static', path='assets/js/main.js') }}"></script>
+    <script>
+
+        //========= testimonial 
+        tns({
+            container: '.testimonial-slider',
+            items: 3,
+            slideBy: 'page',
+            autoplay: false,
+            mouseDrag: true,
+            gutter: 0,
+            nav: true,
+            controls: false,
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                540: {
+                    items: 1,
+                },
+                768: {
+                    items: 2,
+                },
+                992: {
+                    items: 2,
+                },
+                1170: {
+                    items: 3,
+                }
+            }
+        });
+
+        //====== counter up 
+        var cu = new counterUp({
+            start: 0,
+            duration: 2000,
+            intvalues: true,
+            interval: 100,
+            append: " ",
+        });
+        cu.start();
+
+        //========= glightbox
+        GLightbox({
+            'href': 'https://www.youtube.com/watch?v=r44RKWyfcFw&fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM',
+            'type': 'video',
+            'source': 'youtube', //vimeo, youtube or local
+            'width': 900,
+            'autoplayVideos': true,
+        });
+
+        //============== isotope masonry js with imagesloaded
+        imagesLoaded('#container', function () {
+            var elem = document.querySelector('.grid');
+            var iso = new Isotope(elem, {
+                // options
+                itemSelector: '.grid-item',
+                masonry: {
+                    // use outer width of grid-sizer for columnWidth
+                    columnWidth: '.grid-item'
+                }
+            });
+
+            let filterButtons = document.querySelectorAll('.portfolio-btn-wrapper button');
+            filterButtons.forEach(e =>
+                e.addEventListener('click', () => {
+
+                    let filterValue = event.target.getAttribute('data-filter');
+                    iso.arrange({
+                        filter: filterValue
+                    });
+                })
+            );
+        });
+
+    </script>
+</body>
+</html>
 {% endblock %}
